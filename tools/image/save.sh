@@ -1,0 +1,1 @@
+docker save `docker images|awk '{print $1}'|grep -v '<none>'|tail -n +2` > images.tar

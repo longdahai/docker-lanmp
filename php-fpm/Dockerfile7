@@ -1,0 +1,22 @@
+FROM php:7-fpm-alpine
+
+RUN apk add --no-cache binutils autoconf gcc g++ make
+
+RUN docker-php-ext-enable opcache
+
+RUN pecl install redis && docker-php-ext-enable redis
+
+#RUN apk add --no-cache openssl-dev\
+#    && pecl install mongodb && docker-php-ext-enable mongodb
+
+#RUN apk add --no-cache linux-headers
+#special patch for alpine linux-kernel have some strange incompatibility
+#RUN sed -i "s/struct sigaction {/#ifndef __sighandler_t \ntypedef void (*__sighandler_t)(int);\n#endif\nstruct sigaction\n{/g" /usr/include/signal.h
+#RUN sed -i "s/union {void (*sa_handler)(int)/__sighandler_t sa_handler/g" /usr/include/signal.h
+
+#RUN pecl install swoole-1.8.5 && docker-php-ext-enable swoole
+
+RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
+
+#RUN docker-php-ext-install mysql
+RUN docker-php-ext-install pdo_mysql

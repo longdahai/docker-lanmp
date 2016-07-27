@@ -1,0 +1,21 @@
+nginx:
+  build: ./nginx
+  container_name: nginx
+  ports:
+    - "8000:80"
+  volumes:
+    - ./data/alpine/nginx/root/etc/nginx/vhost:/etc/nginx/vhost
+  # volumes_from:
+  #   - webdata
+
+  # links:
+    # - webdata
+    # - percona
+
+php-fpm:
+  build: ./php-fpm
+  container_name: php-fpm
+  ports:
+    - "9000:9000"
+  # volumes_from:
+  #   - webdata

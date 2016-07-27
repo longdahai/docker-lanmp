@@ -1,0 +1,62 @@
+#!/bin/bash
+RSYNC_INTERVAL=${RSYNC_INTERVAL:-0}
+RSYNC_VOL="${RSYNC_VOL:-/vol}"
+RSYNC_PID_FILE="/tmp/.rsync.pid"
+RSYNC_ARGV=$@
+RSYNC_ARGC=$#
+
+function do_rsync() {
+  if [ $RSYNC_ARGC -gt 0 ]; then
+    echo "Performing rsync $RSYNC_ARGV"
+    rsync $RSYNC_ARGV
+  else
+    echo "Skipping rsync; no arguments passed"
+  fi
+}
+
+function do_cleanup() {
+  if [ -f $RSYNC_PID_FILE ]; then
+    rm -f $RSYNC_PID_FILE;
+  fi
+}
+
+function do_shutdown() {
+ kill -SIGINT $RSYNC_PID
+}
+
+function do_main() {
+  (
+  smbd -D
+  do_cleanup
+  while true; do
+    echo "$$" > "$RSYNC_PID_FILE"
+    if [ "$RSYNC_INTERVAL" == "on-exit" ]; then
+      sleep infinity
+    elif [ "$RSYNC_INTERVAL" == "infinity" ] || [ "$RSYNC_INTERVAL" -gt 0 ]; then
+      do_rsync;
+      sleep "$RSYNC_INTERVAL"
+    else
+      do_rsync;
+      break
+    fi
+  done
+  )&
+  RSYNC_PID=$!
+}
+
+
+do_main
+
+# trap interrupts, do final rsync and quit
+trap "echo -e '\nInterrupted'; do_shutdown" SIGINT SIGTERM
+wait
+
+if [ "$RSYNC_INTERVAL" == "on-exit" ] || [ "$RSYNC_INTERVAL" == "infinity" ] || [ "$RSYNC_INTERVAL" -gt 0 ]; then
+  # do one final rsync
+  do_rsync
+fi
+
+# cleanup before we exit
+do_cleanup
+
+

@@ -1,0 +1,3 @@
+[mysqld]
+port = 3307
+datadir		= /samba_data/db

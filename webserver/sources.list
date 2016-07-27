@@ -1,0 +1,2 @@
+deb http://mirrors.sohu.com/debian jessie main non-free contrib
+deb-src http://mirrors.sohu.com/debian jessie main non-free contrib
