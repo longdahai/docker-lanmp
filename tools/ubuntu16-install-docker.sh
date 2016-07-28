@@ -5,5 +5,5 @@ echo deb https://apt.dockerproject.org/repo ubuntu-xenial main | sudo tee /etc/a
 sudo apt-get update
 sudo apt-get purge lxc-docker
 sudo apt-cache policy docker-engine
-sudo apt-get install docker-engine
+sudo apt-get install docker-engine -y
 sudo service docker start
