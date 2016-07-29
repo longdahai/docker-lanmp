@@ -14,19 +14,34 @@ php-fpm:
     - "9000:9000"
   volumes:
     - ./www:/var/www/html
-php-composer:
-  image: composer/composer:alpine
-node:
-  image: node
-python:
-  image: python:alpine
-golang:
-  image: go:alpine
+# php-composer:
+#   container_name: php-composer
+#   image: composer/composer:alpine
+# node:
+#   image: mhart/alpine-node-auto:latest
+# python:
+#   image: python:alpine
+# golang:
+#   image: go:alpine
 redis:
+  container_name: redis
   image: redis:alpine
-mongo:
-  image: mongo:latest
+# mongo:
+#   image: mongo:latest
 mariadb:
+  container_name: mariadb
   image: mariadb:latest
   ports:
     - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: a123456
+  volumes:
+    - ./data/mariadb:/var/lib/mysql
+samba:
+  image: pwntr/samba-alpine
+  container_name: samba
+  volumes:
+    - ./:/shared
+  ports:
+    - "137-139:137-139"
+    - "445:445"
