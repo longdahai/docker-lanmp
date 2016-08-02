@@ -1,47 +1,62 @@
-nginx:
-  build: ./nginx
-  container_name: nginx
-  ports:
-    - "8000:80"
-  volumes:
-    - ./data/alpine/nginx/root/etc/nginx/vhost:/etc/nginx/vhost
-    - ./www:/var/www/html
-php-fpm:
-  build: ./php-fpm
-  dockerfile: Dockerfile7
-  container_name: php-fpm
-  ports:
-    - "9000:9000"
-  volumes:
-    - ./www:/var/www/html
-# php-composer:
-#   container_name: php-composer
-#   image: composer/composer:alpine
-# node:
-#   image: mhart/alpine-node-auto:latest
-# python:
-#   image: python:alpine
-# golang:
-#   image: go:alpine
-redis:
-  container_name: redis
-  image: redis:alpine
-# mongo:
-#   image: mongo:latest
-mariadb:
-  container_name: mariadb
-  image: mariadb:latest
-  ports:
-    - "3306:3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: a123456
-  volumes:
-    - ./data/mariadb:/var/lib/mysql
-samba:
-  image: pwntr/samba-alpine
-  container_name: samba
-  volumes:
-    - ./:/shared
-  ports:
-    - "137-139:137-139"
-    - "445:445"
+version: '2'
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./data/alpine/nginx/root/etc/nginx/vhost:/etc/nginx/vhost
+      - ./www:/var/www/html
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: ./php-fpm
+      dockerfile: Dockerfile7
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./www:/var/www/html
+    # networks:
+    #   app_net:
+    #     ipv4_address: 172.1.0.5
+  # php-composer:
+  #   container_name: php-composer
+  #   image: composer/composer:alpine
+  # node:
+  #   image: mhart/alpine-node-auto:latest
+  # python:
+  #   image: python:alpine
+  # golang:
+  #   image: go:alpine
+  redis:
+    container_name: redis
+    image: redis:alpine
+  # mongo:
+  #   image: mongo:latest
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: a123456
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+  samba:
+    container_name: samba
+    build: ./samba
+    volumes:
+      - ./:/shared
+    ports:
+      - "137-139:137-139"
+      - "445:445"
+# networks:
+#   app_net:
+#     driver: none
+#     ipam:
+#       driver: default
+#       config:
+#       - subnet: 172.16.238.0/24
+#         gateway: 172.16.238.1
