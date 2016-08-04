@@ -1,14 +1,29 @@
 version: '2'
 services:
+  apache:
+    build:
+      context: ./apache
+      dockerfile: Dockerfile_56
+    container_name: apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./data/apache/sites-enabled:/etc/apache2/sites-enabled
+      - /etc/hosts:/etc/hosts
   nginx:
     container_name: nginx
     build:
       context: ./nginx
     ports:
-      - "8000:80"
+      - "8080:80"
     volumes:
       - ./data/alpine/nginx/root/etc/nginx/vhost:/etc/nginx/vhost
       - ./www:/var/www/html
+    networks:
+      app_net:
+        ipv4_address: 172.16.1.2
+        # ipv6_address: 2001:3984:3989::10
   php-fpm:
     container_name: php-fpm
     build:
@@ -18,9 +33,10 @@ services:
       - "9000:9000"
     volumes:
       - ./www:/var/www/html
-    # networks:
-    #   app_net:
-    #     ipv4_address: 172.1.0.5
+    networks:
+      app_net:
+        ipv4_address: 172.16.1.3
+        # ipv6_address: 2001:3984:3989::10
   # php-composer:
   #   container_name: php-composer
   #   image: composer/composer:alpine
@@ -52,11 +68,15 @@ services:
     ports:
       - "137-139:137-139"
       - "445:445"
-# networks:
-#   app_net:
-#     driver: none
-#     ipam:
-#       driver: default
-#       config:
-#       - subnet: 172.16.238.0/24
-#         gateway: 172.16.238.1
+networks:
+  app_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.1.0/24
+        gateway: 172.16.1.1
+      # - subnet: 2001:3984:3989::/64
+      #   gateway: 2001:3984:3989::1

@@ -1,8 +1,6 @@
-FROM php:5.6-apache
+FROM php:5.4-apache
 
 MAINTAINER haiwei long "haiwei.free@gmail.com"
-
-COPY /sources.list /etc/apt/sources.list
 
 # COPY apache/sites-enabled/* /etc/apache2/sites-enabled/
 
@@ -10,6 +8,7 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev imagemagick li
     && docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
     && docker-php-ext-install mysql mysqli mbstring pdo_mysql gd
 
+RUN pecl install ZendOpcache-7.0.5
 RUN docker-php-ext-enable opcache
 
 RUN pecl install redis-2.2.7
@@ -21,6 +20,5 @@ RUN apt-get install -y libmcrypt-dev\
 RUN a2enmod rewrite
 
 # WORKDIR /etc/apache2/sites-enabled
-COPY /apache2.conf /etc/apache2
 
 CMD ["apache2-foreground"]

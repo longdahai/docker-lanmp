@@ -1,1 +1,1 @@
-cp ./bin/* /usr/local/bin/ -r
+cp ./bin/* /usr/local/bin/ -rf
