@@ -2,6 +2,8 @@ FROM php:5.4-apache
 
 MAINTAINER haiwei long "haiwei.free@gmail.com"
 
+COPY /sources.list /etc/apt/sources.list
+
 # COPY apache/sites-enabled/* /etc/apache2/sites-enabled/
 
 RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev imagemagick libfreetype6-dev\
