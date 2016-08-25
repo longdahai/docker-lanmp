@@ -16,11 +16,11 @@ services:
       app_net:
         ipv4_address: 172.16.1.2
         # ipv6_address: 2001:3984:3989::10
-  php-fpm7:
-    container_name: php-fpm7
+  php-fpm56:
+    container_name: php-fpm56
     build:
       context: ./php-fpm
-      dockerfile: Dockerfile_7
+      dockerfile: Dockerfile_56
     ports:
       - "9000:9000"
     volumes:

@@ -1,2 +1,4 @@
 www
 data/mariadb
+data/apache/sites-enabled
+data/alpine/nginx/root/etc/nginx/vhost/*.conf

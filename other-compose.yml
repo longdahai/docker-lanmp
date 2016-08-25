@@ -1,0 +1,16 @@
+version: '2'
+services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+  mongo:
+    image: mongo:latest
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: a123456
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
