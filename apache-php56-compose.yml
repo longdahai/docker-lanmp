@@ -1,6 +1,6 @@
 version: '2'
 services:
-  apache:
+  apache56:
     build:
       context: ./apache
       dockerfile: Dockerfile_56
@@ -13,20 +13,6 @@ services:
       - ./data/apache/sites-enabled:/etc/apache2/sites-enabled
       - ./data/apache/ssl:/etc/apache2/ssl
       - /etc/hosts:/etc/hosts
-  redis:
-    container_name: redis
-    image: redis:alpine
-  # mongo:
-  #   image: mongo:latest
-  mariadb:
-    container_name: mariadb
-    image: mariadb:latest
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: a123456
-    volumes:
-      - ./data/mariadb:/var/lib/mysql
   samba:
     container_name: samba
     build: ./samba

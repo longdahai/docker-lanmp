@@ -26,7 +26,8 @@ services:
     volumes:
       - ./www:/var/www/html
       - ./data/php-fpm/php.ini:/usr/local/etc/php/php.ini
-      - ./data/log:/usr/local/var/log
+      - ./data/log:/var/log
+      - ./data/tmp:/tmp
     networks:
       app_net:
         ipv4_address: 172.16.1.3
