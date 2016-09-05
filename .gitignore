@@ -4,3 +4,4 @@ data/apache/sites-enabled
 data/alpine/nginx/root/etc/nginx/vhost/*.conf
 data/tmp/*
 data/log/*
+data/alpine/nginx/root/etc/nginx/ssl/
