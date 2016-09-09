@@ -2,6 +2,9 @@ FROM alpine:3.4
 MAINTAINER Peter Winter <peter@pwntr.com>
 LABEL Description="Simple and lightweight Samba docker container, based on Alpine Linux." Version="0.1"
 
+# dahai
+COPY repositories /etc/apk/
+
 # update the base system
 RUN apk update && apk upgrade
 

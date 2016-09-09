@@ -1,9 +1,8 @@
 version: '2'
 services:
   nginx:
-    container_name: nginx
-    build:
-      context: ./nginx
+      container_name: nginx
+    image: nginx:alpine
     ports:
       - "80:80"
       - "443:443"
