@@ -1,0 +1,23 @@
+version: '2'
+services:
+  hhvm:
+    container_name: hhvm
+    build:
+      context: ./docker/hhvm
+      dockerfile: Dockerfile_hvvm
+    ports:
+      - "8080:8080"
+      - "9001:9001"
+    volumes:
+      - ./www:/var/www/html
+      - ./data/php-fpm/php.ini:/usr/local/etc/php/php.ini
+    #   - ./data/log:/var/log
+    #   - ./data/tmp:/tmp
+  samba:
+    container_name: samba
+    build: ./samba
+    volumes:
+      - ./:/shared
+    ports:
+      - "137-139:137-139"
+      - "445:445"

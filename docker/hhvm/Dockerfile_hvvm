@@ -1,0 +1,25 @@
+FROM php:5.6.25-apache
+
+MAINTAINER haiwei long "haiwei.free@gmail.com"
+
+COPY /sources.list /etc/apt/sources.list
+
+# RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev imagemagick libfreetype6-dev\
+#     && docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
+#     && docker-php-ext-install mysql mysqli mbstring pdo_mysql gd
+
+# RUN apt-get install -y libmcrypt-dev && docker-php-ext-install mcrypt
+
+# RUN docker-php-ext-enable opcache
+
+# RUN a2enmod rewrite ssl socache_shmcb
+
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449\
+	&& echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list\
+	&& apt-get update\
+	&& apt-get install hhvm -y
+
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
