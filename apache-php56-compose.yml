@@ -2,7 +2,7 @@ version: '2'
 services:
   apache56:
     build:
-      context: ./apache
+      context: ./docker/apache
       dockerfile: Dockerfile_56
     container_name: apache56
     ports:
@@ -15,7 +15,7 @@ services:
       - /etc/hosts:/etc/hosts
   samba:
     container_name: samba
-    build: ./samba
+    build: ./docker/samba
     volumes:
       - ./:/shared
     ports:

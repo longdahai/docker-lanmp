@@ -2,7 +2,7 @@ version: '2'
 services:
   apache7:
     build:
-      context: ./apache
+      context: ./docker/apache
       dockerfile: Dockerfile_7
     container_name: apache7
     ports:
@@ -17,7 +17,7 @@ services:
         - ./data/tmp:/tmp
   samba:
     container_name: samba
-    build: ./samba
+    build: ./docker/samba
     volumes:
       - ./:/shared
     ports:

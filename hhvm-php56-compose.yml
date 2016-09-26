@@ -15,7 +15,7 @@ services:
     #   - ./data/tmp:/tmp
   samba:
     container_name: samba
-    build: ./samba
+    build: ./docker/samba
     volumes:
       - ./:/shared
     ports:
