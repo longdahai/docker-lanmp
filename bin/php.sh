@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm --name php -v $(pwd):$(pwd) -w "$(pwd)" -p 8080:8080 docker_apache56 $@
+docker run --rm --name php -v $(pwd):$(pwd) -w "$(pwd)" php:5.6.26-alpine php $@
