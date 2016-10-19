@@ -9,10 +9,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./www:/var/www/html
-      - ./data/apache/sites-enabled:/etc/apache2/sites-enabled
-      - ./data/apache/ssl:/etc/apache2/ssl
-      - /etc/hosts:/etc/hosts
+        # linux
+        - /etc/hosts:/etc/hosts
+        # apache
+        - ./www:/var/www/html
+        - ./data/apache/sites-enabled:/etc/apache2/sites-enabled
+        - ./data/apache/ssl:/etc/apache2/ssl
+        # php
+        - ./data/php-fpm/php.ini:/usr/local/etc/php/php.ini
   samba:
     container_name: samba
     build: ./docker/samba
