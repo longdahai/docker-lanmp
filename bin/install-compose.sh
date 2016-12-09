@@ -1,7 +1,6 @@
-#apt-get install curl -y
-#curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-#sudo apt-get install python-pip
-#pip install docker-compose
-#chmod +x /usr/local/bin/docker-compose
-curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
+#!/bin/bash
+html=$(curl -s 'https://docs.docker.com/compose/install/')
+cmd=$(echo $html|grep -Po '<code>\s*\$.*?</code>'|head -n 1|sed -e 's/<code>//' -e 's/<\/code>//' -e 's/\$//' | sed 's/^ //;s/ $//')
+echo "run $cmd"
+eval $cmd
 chmod +x /usr/local/bin/docker-compose
