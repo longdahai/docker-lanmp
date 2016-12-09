@@ -1,6 +1,6 @@
 # docker-lanmp
 
-** 安装 **
+安装
 ```
 $ git clone https://github.com/dahaisoft/docker-lanmp.git
 #debian安装docker
@@ -15,7 +15,7 @@ $ sudo docker-compose -f apache-php56-compose.yml up -d
 $ sudo docker-compose -f mariadb-compose.yml up -d
 ```
 
-** 目录结构 **
+目录结构
 ```
 .
 ├── bin             工具
