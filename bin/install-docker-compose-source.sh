@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get install curl -y
+apt-get install curl python-setuptools -y
 html=$(curl 'https://github.com/docker/compose/releases')
 url=$(echo $html|grep -Po 'href="[^"]+"'|grep gz|head -n 1|sed -e 's/href="//;s/"//')
 url="https://github.com$url"
