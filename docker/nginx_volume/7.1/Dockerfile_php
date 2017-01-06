@@ -1,0 +1,44 @@
+FROM php:7.1-fpm-alpine
+
+COPY root /
+
+ENV PHPIZE_DEPS \
+		autoconf \
+		file \
+		g++ \
+		gcc \
+		libc-dev \
+		make \
+		pkgconf \
+		re2c
+
+RUN apk add --no-cache --virtual .build-deps \
+		$PHPIZE_DEPS
+
+RUN docker-php-ext-enable opcache
+
+RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
+
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql
+
+RUN apk del .build-deps
+
+# RUN sed -i 's/listen = 127.0.0.1:9000/listen = \/tmp\/php-fpm.socket/' /usr/local/etc/php-fpm.d/www.conf
+RUN { \
+	echo '[global]'; \
+	echo 'daemonize = no'; \
+	echo; \
+	echo '[www]'; \
+	echo 'listen = 127.0.0.1:9000'; \
+	echo 'listen.owner = root'; \
+	echo 'listen.group = root'; \
+	echo 'listen.mode = 777'; \
+} | tee /usr/local/etc/php-fpm.d/zz-docker.conf
+
+RUN mkdir /volume \
+	&& cp /usr/* /volume/ -r
+
+VOLUME ["/volume"]
+
+CMD ["sh"]
