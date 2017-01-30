@@ -22,15 +22,18 @@ RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 
+RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
+	&& docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
+	&& docker-php-ext-install gd
+
 RUN apk del .build-deps
 
-# RUN sed -i 's/listen = 127.0.0.1:9000/listen = \/tmp\/php-fpm.socket/' /usr/local/etc/php-fpm.d/www.conf
 RUN { \
 	echo '[global]'; \
 	echo 'daemonize = no'; \
 	echo; \
 	echo '[www]'; \
-	echo 'listen = 127.0.0.1:9000'; \
+	echo 'listen = /tmp/php-fpm.socket'; \
 	echo 'listen.owner = root'; \
 	echo 'listen.group = root'; \
 	echo 'listen.mode = 777'; \
