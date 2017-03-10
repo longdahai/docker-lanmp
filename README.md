@@ -1,25 +1,33 @@
-# docker-lanmp
+# Docker to install apache, PHP mysql environment
 
-安装
+## Install the Docker
 ```
 $ git clone https://github.com/dahaisoft/docker-lanmp.git
-#debian安装docker
+# debian
 $ sudo ./bin/debian8-install-docker.sh
-#centos安装docker
+# centos
 $ sudo ./bin/centos-install-docker.sh
-#安装docker-compose
+```
+
+## Install the Docker-compose
+```
 $ sudo ./bin/install-compose.sh
-#运行apache
+```
+
+## Run the choreography
+```
+# Copy the docker - compose folder apache - php56 - compose. Yml, mariadb - compose. Yml to the root directory
+# Run apache
 $ sudo docker-compose -f apache-php56-compose.yml up -d
-#运行mariadb
+# Run mariadb
 $ sudo docker-compose -f mariadb-compose.yml up -d
 ```
 
-目录结构
+## The directory structure
 ```
 .
-├── bin             工具
-├── data            配置目录
-├── docker          容器
-└── *.yml           容器编排
+├── bin             Shell tools
+├── data            The user data directory
+├── docker          Docker source code
+└── docker-compose  Container format template
 ```
