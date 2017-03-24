@@ -1,5 +1,7 @@
 # Docker to install apache, PHP mysql environment
 
+[中文](./README_CN.md)
+
 ## Install the Docker
 ```
 $ git clone https://github.com/dahaisoft/docker-lanmp.git
