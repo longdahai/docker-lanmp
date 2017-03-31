@@ -1,1 +1,0 @@
-docker load < images.tar

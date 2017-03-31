@@ -1,1 +1,0 @@
-docker run --rm  -v /Users/backup:/backup --volumes-from xweb xweb tar cvf /backup/dbdata.tar /etc
