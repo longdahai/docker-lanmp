@@ -1,0 +1,29 @@
+version: '2'
+services:
+    php:
+        container_name: php
+        # image: dahaitech/nginx-php:php-7
+        build:
+            context: ./docker/php_mount_nginx/php/7.1
+            dockerfile: Dockerfile_php
+            ports:
+                - "80:80"
+                - "443:443"
+                volumes:
+                    - ./www:/usr/share/nginx/html
+                    volumes_from:
+                        - php
+    nginx:
+        container_name: nginx
+        # image: dahaitech/nginx-php:php-7
+        build:
+            context: ./docker/nginx_volume/7.1
+            dockerfile: Dockerfile_nginx
+    mariadb:
+        container_name: mariadb
+        image: univunix/alpine-mariadb
+        ports:
+            - "3306:3306"
+        environment:
+            DB_USER: root
+            DB_PASS: a123456
