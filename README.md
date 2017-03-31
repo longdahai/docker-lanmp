@@ -6,14 +6,14 @@
 ```
 $ git clone https://github.com/dahaisoft/docker-lanmp.git
 # debian
-$ sudo ./bin/debian8-install-docker.sh
+$ curl -sSL https://raw.githubusercontent.com/dahaisoft/shell-tool/master/install-atom.sh | sudo sh
 # centos
-$ sudo ./bin/centos-install-docker.sh
+$ curl -sSL https://raw.githubusercontent.com/dahaisoft/shell-tool/master/centos-install-docker.sh | sudo sh
 ```
 
 ## Install the Docker-compose
 ```
-$ sudo ./bin/install-compose.sh
+$ curl -sSL https://raw.githubusercontent.com/dahaisoft/shell-tool/master/install-compose.sh | sudo sh
 ```
 
 ## Run the choreography
@@ -28,8 +28,8 @@ $ sudo docker-compose -f mariadb-compose.yml up -d
 ## The directory structure
 ```
 .
-├── bin             Shell tools
+├── www             Web sites
 ├── data            The user data directory
 ├── docker          Docker source code
-└── docker-compose  Container format template
+└── compose-template  Container format template
 ```
