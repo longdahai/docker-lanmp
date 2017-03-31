@@ -1,0 +1,10 @@
+FROM nginx:alpine
+
+RUN mkdir /volume \
+	&& cp /usr /volume/ -r \
+	&& cp /etc /volume/ -r \
+	&& cp /var /volume/ -r
+
+VOLUME ["/volume"]
+
+CMD ["sh"]
