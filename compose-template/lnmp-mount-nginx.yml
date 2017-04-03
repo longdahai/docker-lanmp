@@ -6,18 +6,18 @@ services:
         build:
             context: ./docker/php_mount_nginx/php/7.1
             dockerfile: Dockerfile_php
-            ports:
-                - "80:80"
-                - "443:443"
-                volumes:
-                    - ./www:/usr/share/nginx/html
-                    volumes_from:
-                        - php
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./www:/usr/share/nginx/html
+        volumes_from:
+            - nginx
     nginx:
         container_name: nginx
         # image: dahaitech/nginx-php:php-7
         build:
-            context: ./docker/nginx_volume/7.1
+            context: ./docker/php_mount_nginx/nginx
             dockerfile: Dockerfile_nginx
     mariadb:
         container_name: mariadb
