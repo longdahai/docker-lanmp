@@ -28,7 +28,7 @@ RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
 	&& docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
 	&& docker-php-ext-install gd
 
-RUN pecl install && docker-php-ext-enable redis
+RUN pecl install redis && docker-php-ext-enable redis
 
 RUN apk del .build-deps
 
