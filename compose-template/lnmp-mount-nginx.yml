@@ -2,7 +2,7 @@ version: '2'
 services:
     php:
         container_name: php
-        dahaitech/docker-lanmp:php_mount_nginx-5.6
+        image: dahaitech/docker-lanmp:php_mount_nginx-5.6
         ports:
             - "80:80"
             - "443:443"
