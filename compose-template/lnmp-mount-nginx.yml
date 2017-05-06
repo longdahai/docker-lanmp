@@ -2,23 +2,18 @@ version: '2'
 services:
     php:
         container_name: php
-        # image: dahaitech/nginx-php:php-7
-        build:
-            context: ./docker/php_mount_nginx/php/7.1
-            dockerfile: Dockerfile_php
+        dahaitech/docker-lanmp:php_mount_nginx-5.6
         ports:
             - "80:80"
             - "443:443"
         volumes:
             - ./www:/usr/share/nginx/html
+            - ./data/nginx:/etc/nginx/conf.d
         volumes_from:
             - nginx
     nginx:
         container_name: nginx
-        # image: dahaitech/nginx-php:php-7
-        build:
-            context: ./docker/php_mount_nginx/nginx
-            dockerfile: Dockerfile_nginx
+        image: dahaitech/docker-lanmp:php_mount_nginx
     mariadb:
         container_name: mariadb
         image: univunix/alpine-mariadb
