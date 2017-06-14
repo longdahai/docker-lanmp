@@ -21,6 +21,8 @@ RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
 
 RUN docker-php-ext-install mysql mysqli pdo_mysql bcmath exif pcntl sockets
 
+RUN apk add --no-cache zlib-dev pcre-dev && docker-php-ext-install zip
+
 RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
 	&& docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
 	&& docker-php-ext-install gd
