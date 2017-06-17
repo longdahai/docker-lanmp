@@ -48,4 +48,6 @@ RUN apk add --no-cache supervisor \
 	&& addgroup -S nginx \
 	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx
 
+WORKDIR /usr/share/nginx/html
+
 CMD ["/bin/run.sh"]
