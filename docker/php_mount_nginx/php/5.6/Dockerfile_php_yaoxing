@@ -29,7 +29,7 @@ RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
 
 RUN pecl install redis && docker-php-ext-enable redis
 
-RUN apk add --no-cache libevent-dev && RUN pecl install event && docker-php-ext-enable event
+RUN apk add --no-cache libevent-dev && pecl install event && docker-php-ext-enable event
 
 RUN apk del .build-deps
 
