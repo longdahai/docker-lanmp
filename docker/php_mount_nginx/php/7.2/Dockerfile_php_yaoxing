@@ -17,6 +17,8 @@ RUN apk add --no-cache --virtual .build-deps \
 
 RUN docker-php-ext-enable opcache
 
+RUN apk add --no-cache libmcrypt-dev
+
 RUN docker-php-ext-install mysqli pdo_mysql bcmath exif pcntl sockets
 
 RUN apk add --no-cache zlib-dev pcre-dev && docker-php-ext-install zip
