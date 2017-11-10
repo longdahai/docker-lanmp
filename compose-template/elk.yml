@@ -1,0 +1,29 @@
+version: '2'
+services:
+    elk_l:
+      image: logstash:alpine
+      container_name: elk_l
+      volumes:
+        - ./data/elk:/etc/logstash
+        - ./data/log:/data
+      ports:
+        - 8088:80
+      command: ["-f", "/etc/logstash"]
+      depends_on:
+        - elk_e
+    elk_e:
+          image: elasticsearch:alpine
+          container_name: elk_e
+        #   volumes:
+        #     - ./data/elk/elasticsearch/data:/usr/share/elasticsearch/data
+          ports:
+            - 9200:9200
+    elk_k:
+      image: kibana
+      container_name: elk_k
+      ports:
+        - 5601:5601
+      depends_on:
+        - elk_e
+      environment:
+        - ELASTICSEARCH_URL=http://192.168.10.205:9200
