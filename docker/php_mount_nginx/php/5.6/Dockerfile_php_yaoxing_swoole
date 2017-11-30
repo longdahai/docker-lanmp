@@ -1,0 +1,60 @@
+FROM php:5.6-fpm-alpine
+
+COPY root /
+
+ENV PHPIZE_DEPS \
+		autoconf \
+		file \
+		g++ \
+		gcc \
+		libc-dev \
+		make \
+		pkgconf \
+		re2c
+
+RUN apk add --no-cache --virtual .build-deps \
+		$PHPIZE_DEPS
+
+RUN docker-php-ext-enable opcache
+
+RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
+
+RUN docker-php-ext-install mysql mysqli pdo_mysql bcmath exif pcntl sockets
+
+RUN apk add --no-cache zlib-dev pcre-dev && docker-php-ext-install zip
+
+RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
+	&& docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
+	&& docker-php-ext-install gd
+
+RUN pecl install redis && docker-php-ext-enable redis
+
+RUN apk add --no-cache linux-headers
+# special patch for alpine linux-kernel have some strange incompatibility
+RUN sed -i "s/struct sigaction {/#ifndef __sighandler_t \ntypedef void (*__sighandler_t)(int);\n#endif\nstruct sigaction\n{/g" /usr/include/signal.h
+RUN sed -i "s/union {void (*sa_handler)(int)/__sighandler_t sa_handler/g" /usr/include/signal.h
+
+RUN pecl install swoole-1.8.5 && docker-php-ext-enable swoole
+
+RUN apk add --no-cache libevent-dev openssl-dev && pecl install event && docker-php-ext-enable event
+
+RUN apk del .build-deps
+
+RUN { \
+	echo '[global]'; \
+	echo 'daemonize = no'; \
+	echo; \
+	echo '[www]'; \
+	echo 'listen = /tmp/php-fpm.socket'; \
+	echo 'listen.owner = root'; \
+	echo 'listen.group = root'; \
+	echo 'listen.mode = 777'; \
+} | tee /usr/local/etc/php-fpm.d/zz-docker.conf
+
+RUN apk add --no-cache supervisor \
+	&& addgroup -S nginx \
+	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx
+
+WORKDIR /usr/share/nginx/html
+
+CMD ["/bin/run.sh"]
