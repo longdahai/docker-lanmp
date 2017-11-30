@@ -34,7 +34,7 @@ RUN apk add --no-cache linux-headers
 RUN sed -i "s/struct sigaction {/#ifndef __sighandler_t \ntypedef void (*__sighandler_t)(int);\n#endif\nstruct sigaction\n{/g" /usr/include/signal.h
 RUN sed -i "s/union {void (*sa_handler)(int)/__sighandler_t sa_handler/g" /usr/include/signal.h
 
-RUN pecl install swoole-1.8.5 && docker-php-ext-enable swoole
+RUN pecl install swoole && docker-php-ext-enable swoole
 
 RUN apk add --no-cache libevent-dev openssl-dev && pecl install event && docker-php-ext-enable event
 
