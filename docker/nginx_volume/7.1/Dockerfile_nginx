@@ -1,9 +1,0 @@
-FROM nginx:alpine
-
-COPY root /
-
-RUN apk add --no-cache supervisor \
-    && addgroup -g 82 -S www-data \
-	&& adduser -u 82 -D -S -G www-data www-data
-
-CMD ["/bin/run.sh"]
