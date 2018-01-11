@@ -22,11 +22,11 @@ RUN apk add --no-cache libmcrypt-dev
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 
-RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev\
+RUN apk add --no-cache libpng-dev libjpeg-turbo-dev freetype-dev libssh2-dev git\
 	&& docker-php-ext-configure gd --with-png-dir --with-jpeg-dir --with-freetype-dir\
 	&& docker-php-ext-install gd
 
-RUN apk add --no-cache libssh2-dev && pecl install ssh2-1.1.2 && docker-php-ext-enable ssh2
+RUN pecl install ssh2-1.1.2 && docker-php-ext-enable ssh2
 
 RUN apk del .build-deps
 
