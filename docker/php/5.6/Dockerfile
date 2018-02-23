@@ -1,7 +1,5 @@
 FROM php:5.6-fpm-alpine
 
-COPY root /
-
 RUN docker-php-ext-enable opcache
 
 RUN apk add --no-cache libmcrypt-dev && docker-php-ext-install mcrypt
