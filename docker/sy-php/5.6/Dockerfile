@@ -10,8 +10,10 @@ RUN set -ex; \
 	\
 	docker-php-ext-install mysql pdo_mysql bcmath mcrypt; \
 	\
-	apk del .build-deps; \
-	pecl install redis && docker-php-ext-enable redis
+	pecl install redis; \
+	docker-php-ext-enable redis; \
+	\
+	apk del .build-deps;
 
 ENTRYPOINT []
 CMD ["php-fpm"]
