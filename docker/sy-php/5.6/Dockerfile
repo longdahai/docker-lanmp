@@ -5,7 +5,7 @@ COPY root /
 RUN set -ex; \
 	\
 	apk add --no-cache --virtual .build-deps \
-	$$PHPIZE_DEPS \
+	$PHPIZE_DEPS \
 	libmcrypt-dev; \
 	\
 	pecl install redis; \
