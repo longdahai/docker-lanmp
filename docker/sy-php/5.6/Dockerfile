@@ -5,7 +5,7 @@ FROM wordpress:php5.6-fpm-alpine
 RUN set -ex; \
 	\
 	apk add --no-cache --virtual .build-deps \
-	libmcrypt-dev \
+	libmcrypt-dev autoconf \
 	; \
 	\
 	docker-php-ext-install mysql pdo_mysql bcmath mcrypt; \
