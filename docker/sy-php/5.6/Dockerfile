@@ -1,6 +1,6 @@
 FROM wordpress:php5.6-fpm-alpine
 
-COPY root /
+# COPY root /
 
 RUN set -ex; \
 	\
@@ -13,5 +13,5 @@ RUN set -ex; \
 	apk del .build-deps; \
 	pecl install redis && docker-php-ext-enable redis
 
-# ENTRYPOINT []
+ENTRYPOINT []
 CMD ["php-fpm"]
