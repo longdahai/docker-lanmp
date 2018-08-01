@@ -6,7 +6,8 @@ RUN set -ex; \
 	\
 	apk add --no-cache --virtual .build-deps \
 	$PHPIZE_DEPS \
-	libmcrypt-dev libjpeg-turbo-dev libpng-dev freetype-dev; \
+	libjpeg-turbo-dev libpng-dev freetype-dev; \
+	apk add --no-cache libmcrypt-dev; \
 	\
 	pecl install redis; \
 	docker-php-ext-enable redis; \
