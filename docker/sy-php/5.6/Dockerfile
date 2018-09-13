@@ -14,7 +14,7 @@ RUN set -ex; \
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr; \
 	docker-php-ext-install gd; \
 	\
-	docker-php-ext-install mysql pdo_mysql bcmath mcrypt; \
+	docker-php-ext-install mysql pdo_mysql bcmath mcrypt sockets; \
 	\
 	apk del .build-deps;
 
