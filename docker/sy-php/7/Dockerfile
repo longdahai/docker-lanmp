@@ -12,8 +12,9 @@ RUN set -ex; \
 	docker-php-ext-enable redis; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr; \
+	docker-php-ext-install gd; \
 	\
-	docker-php-ext-install pdo_mysql bcmath; \
+	docker-php-ext-install pdo_mysql bcmath sockets; \
 	\
 	apk del .build-deps;
 
