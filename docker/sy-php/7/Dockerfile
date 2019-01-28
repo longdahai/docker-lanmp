@@ -15,7 +15,7 @@ RUN set -ex; \
 	\
 	docker-php-ext-install pdo_mysql bcmath sockets; \
 	\
-	pecl install swoole && docker-php-ext-enable swoole\
+	pecl install swoole && docker-php-ext-enable swoole; \
 	\
 	apk del .build-deps;
 
